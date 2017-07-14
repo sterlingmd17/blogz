@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class='heading'> Add a blog entry</h1>
+<form action="/newpost" method='POST'>
+    <span>Title for blog entry:</span> 
+    <p>
+        <input type="text" name='title' value="{{title}}">
+        {% with messages = get_flashed_messages(category_filter=["error0"]) %}
+            {% if messages %}
+                {% for message in messages %}
+                <span class="error">{{message}}</span>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </p>
+    <span>Your blog entry</span>
+   <p>
+        <textarea name='body'>{{body}}</textarea>
+        {% with messages = get_flashed_messages(category_filter=["error1"]) %}
+            {% if messages %}
+                {% for message in messages %}
+        <span class="error">{{message}}</span>
+                {% endfor %}
+                {% endif %}
+        {% endwith %}
+    </p>
+    <input type='submit' value="Add entry">
+</form>
+{% endblock %}
