@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://build-a-blog:build-a-blog@localhost:8889/build-a-blog'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://blogz:blogz@localhost:8889/blogz'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 app.secret_key= "derp"
@@ -15,11 +15,22 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120))
     body = db.Column(db.String(300))
+    owner_id = db.Column(db.Integer, db.ForeignKey('User.id'))
 
-    def __init__(self, title, body):
+    def __init__(self, title, body, owner):
         self.title = title
         self.body = body
+        self.owner = owner
 
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20))
+    password = db.Column(db.String(20))
+    blogs = db.relationship('Blog', backref='owner')
+
+    def __init__(self, email, password):
+        self.email = email
+        self.password = password
 
 @app.route("/newpost", methods=['POST', 'GET'])
 def newpost():
@@ -52,6 +63,23 @@ def ind_blog():
 def index():
     posts = Blog.query.all()
     return render_template("blog.html", posts=posts)
+
+#@app.route('/signup', methods=['POST','GET'])
+#def signup():
+    
+#@app.route('/login', methods=['POST','GET'])
+#def login():
+    
+#@app.route('/logout', methods=['POST','GET'])
+#def logout():
+    
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     app.run()
