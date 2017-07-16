@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class='heading'>Build a blog</h1>
+<h1 class='heading'>{{username}}</h1>
 
 <ul>
-    {% for post in posts %}
-        <a href="/ind-blog?id={{post.id}}"><h2>{{post.title}}</h2></a>
-        <p>{{post.body}}</p>
+    {% for blog in blog_posts %}
+        <a href="/ind-blog?id={{blog.id}}"><h2>{{blog.title}}</h2></a>
+        <p>{{blog.body}}</p>
     {% endfor %}
     </form>
 </ul>

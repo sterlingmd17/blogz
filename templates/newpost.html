@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% with messages = get_flashed_messages() %}
+    {% for msg in messages %}
+    <span>{{msg}}</span>
+    {% endfor %}
+{% endwith %}
+
 <h1 class='heading'> Add a blog entry</h1>
 <form action="/newpost" method='POST'>
     <span>Title for blog entry:</span> 

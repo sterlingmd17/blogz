@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% for cat,msg in messages %}
+    <span class='{{cat}}'>{{msg}}</span>
+    {% endfor %}
+{% endwith %}
+
+<form action="/signup" method ="POST">
+     <table>
+                <tr>
+                    <td><label for="username">Username</label></td>
+                    <td>
+                        <input name="username" type="text" value="{{user}}">
+                        {% if error1 %}
+                        <span class ="error">{{ error1 }} </span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password</label></td>
+                    <td>
+                        <input name="password" type="password">
+                        {% if error2 %}
+                        <span class="error">{{ error2 }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="verify">Verify Password</label></td>
+                    <td>
+                        <input name="verify" type="password">
+                        {% if error3 %}
+                        <span class="error">{{ error3 }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type ="submit" Value="submit">
+                    </td>
+                </tr>
+            </table>
+
+</form>
+
+{% endblock %}

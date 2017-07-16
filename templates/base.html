@@ -8,12 +8,21 @@
             font-style: italic;
         }
 </style>
-<link rel="stylesheet" href="C:\Users\Sterling\lc101\build-a-blog\color\css\theme-Dark.css"
     </head>
 <body>
+    {% if username not in session %}
     <div>
-    <a href="/">Blog entry list</a><span> | </span><a href="/newpost">Newpost</a>
+    <a href="/">User list</a><span> | </span><a href="/newpost">Newpost</a>
     </div>
+    {% endif %}
+
+    {% if username in session %}
+    <div>
+    <a href="/blogs">your blog posts</a><span> | </span><a href="/newpost">Newpost</a>
+    </div>
+    {% endif %}
+
+
     {% block content %}
     {% endblock %}
 
