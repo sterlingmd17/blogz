@@ -3,7 +3,7 @@
 {% block content %}
 {% with messages = get_flashed_messages() %}
     {% for msg in messages %}
-    <span>{{msg}}</span>
+    <span class="flashed">{{msg}}</span>
     {% endfor %}
 {% endwith %}
 

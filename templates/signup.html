@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="heading">Register</h1>
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% for cat,msg in messages %}
+    <span class='{{cat}}'>{{msg}}</span>
+    {% endfor %}
+{% endwith %}
+
+<form action="/signup" method ="POST">
+     <table>
+                <tr>
+                    <td>
+                    <p>Username:</p>
+                        <input name="username" type="text" value="{{user}}">
+                        {% if error1 %}
+                        <span class ="error">{{ error1 }} </span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Password:</p>
+                        <input name="password" type="password">
+                        {% if error2 %}
+                        <span class="error">{{ error2 }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Verify Password:</p>
+                        <input name="verify" type="password">
+                        {% if error3 %}
+                        <span class="error">{{ error3 }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type ="submit" Value="submit">
+                    </td>
+                </tr>
+            </table>
+
+</form>
+
+{% endblock %}
