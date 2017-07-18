@@ -22,7 +22,7 @@ class Blog(db.Model):
     def __init__(self, title, body, owner):
         self.title = title
         self.body = body
-        self.owner=owner
+        self.owner= owner
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -43,7 +43,7 @@ def require_login():
 
 @app.route("/newpost", methods=['POST', 'GET'])
 def newpost():
-    blog_owner = User.query.filter_by(username= session['username'])
+    blog_owner = User.query.filter_by(username= session['username']).first()
     title = ''
     body = ''
 
