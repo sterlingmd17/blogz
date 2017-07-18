@@ -1,15 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% for user in user %}
 <h1 class='heading'>{{user.username}}</h1>
-{% endfor %}
+
 
 {% for blog in blog %}
-<ul>
-        <a href="/ind-blog?id={{blog.id}}"><h2>{{blog.title}}</h2></a>
-        <p>{{blog.body}}</p>
+
+<p> 
+<a href="/ind-blog?id={{blog.id}}"><h2>{{blog.title}}</h2></a>
+{{blog.body}}
+</p>
 {% endfor %}
-    </form>
-</ul>
 {% endblock %}

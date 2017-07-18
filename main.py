@@ -142,7 +142,8 @@ def login():
 
         session['username'] = username
         flash("You are logged in as "+session['username'])
-        return render_template('login.html', username=session['username'])
+        user = User.query.filter_by(username= session['username']).first()
+        return render_template('login.html', username=user)
 
     return render_template('login.html')
 
@@ -154,18 +155,19 @@ def logout():
     
 @app.route('/blogs', methods=['GET', 'POST'])
 def blogs():
-    #TODO- fix blogs function to give back users blog posts
-    if request.args.get('username') in session:
-        user = User.query.filter_by(username=request.args.get('username')).first()
-        blog = Blog.query.filter_by(owner_id=user.id).all()
-        return render_template('blog.html', user=user, blog=blog, username=session['username'] )
-    elif request.args.get('username') not in session:
-        user_id = int(request.args.get('userid'))
-        user = User.query.filter_by(id = user_id).first()
-        blog = Blog.query.filter_by(owner_id = user_id).all()
-        return render_template('blog.html', blog=blog, user=user)
-        
-        #TODO- should i allow viewing of users and there blogs if not logged in?^
+    user_id= request.args.get('userid')
+    ses_username=request.args.get('username')
+
+    if user_id:
+        user = User.query.filter_by(id=user_id).first()
+        users_blogs= Blog.query.filter_by(owner_id= user.id).all()
+        return render_template('blog.html', blog=users_blogs, user=user)
+    if ses_username:
+        user= User.query.filter_by(username = ses_username).first()
+        users_blogs = Blog.query.filter_by(owner_id=user.id).all()
+        return render_template('blog.html', blog=users_blogs, user=user)
+
+    
 
 
 @app.route('/', methods=['POST', 'GET'])
