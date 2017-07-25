@@ -123,27 +123,20 @@ def login():
         username= request.form['username']
         password= request.form['password']
         user_check= User.query.filter_by(username=username).first()
-
-        if not username and password:
-            flash("Please enter a username and password")
+        
+        if user_check == None:
+            flash('Username does not exist')
             return render_template('login.html')
 
-        if username == user_check.username:
-            pass
-        else:
-            flash("No existing user, Please enter an existing user")
+        if password != user_check.password:
+            flash('Password is incorrect')
             return render_template('login.html')
 
         if password == user_check.password:
-            pass
-        else:
-            flash("Password is incorrect")
+            session['username']=user_check.username
+            flash('You are logged in as '+user_check.username)
             return render_template('login.html')
 
-        session['username'] = username
-        flash("You are logged in as "+session['username'])
-        user = User.query.filter_by(username= session['username']).first()
-        return render_template('login.html', username=user)
 
     return render_template('login.html')
 
